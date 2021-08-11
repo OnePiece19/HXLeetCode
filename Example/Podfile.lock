@@ -1,0 +1,27 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - HXLeetCode (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - HXLeetCode (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  HXLeetCode:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  HXLeetCode: 9b437b590d36a2c77333cd5d7c5d0aef2dc79c48
+
+PODFILE CHECKSUM: 4f5107837a179544a9678177a44756ba7651ca35
+
+COCOAPODS: 1.9.2

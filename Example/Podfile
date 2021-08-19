@@ -4,10 +4,12 @@ platform :ios, '9.0'
 
 target 'HXLeetCode_Example' do
   pod 'HXLeetCode', :path => '../'
-
+  pod 'AFNetworking'
+  
+  
   target 'HXLeetCode_Tests' do
     inherit! :search_paths
 
-    pod 'FBSnapshotTestCase'
+#    pod 'FBSnapshotTestCase'
   end
 end

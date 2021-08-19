@@ -1,27 +1,37 @@
 PODS:
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - HXLeetCode (0.1.0)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
+  - AFNetworking
   - HXLeetCode (from `../`)
 
 SPEC REPOS:
   trunk:
-    - FBSnapshotTestCase
+    - AFNetworking
 
 EXTERNAL SOURCES:
   HXLeetCode:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   HXLeetCode: ecb69386ac7f40e8570fc77c53d2947f08434180
 
-PODFILE CHECKSUM: 4f5107837a179544a9678177a44756ba7651ca35
+PODFILE CHECKSUM: 935c02fad9cebb2bd3615cfbdad5a52bff9d67d5
 
 COCOAPODS: 1.9.2

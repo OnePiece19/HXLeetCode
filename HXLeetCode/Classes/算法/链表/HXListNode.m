@@ -119,11 +119,11 @@ void deleteNode(struct ListNode* node) {
 ListNode* deleteDuplicates(ListNode* head){
     if (head == NULL || head->next == NULL) return head;
     
-    struct ListNode * first = head;
-    struct ListNode * second = head ->next;
+    ListNode * first = head;
+    ListNode * second = head ->next;
 
     while(first != NULL && second != NULL){
-        while(second!=NULL&& first->val == second->val ){
+        while(second!=NULL && first->val == second->val ){
             second = second->next;  // 删除元素
         }
         first->next = second;       // 第一指针后移
@@ -138,21 +138,24 @@ ListNode* deleteDuplicates(ListNode* head){
 /**
  @param head 头
  @param n n保证是有效的。
- @return 删除结点n的链表
+ @return 删除倒数结点n的
+ 
+ 快慢指针
  */
 ListNode* removeNthFromEnd(ListNode* head, int n){
-    struct ListNode* first=head;
-    while(n--!=0)
-        first=first->next;      // 第一个指针先移动到整数第N个结点
-    if(!first)
+    ListNode* fast = head;
+    while(n-- != 0)
+        fast = fast->next;      // 第一个指针先移动到整数第N个结点
+    if(!fast)
         return head->next;      // 判断空
-    struct ListNode* sec=head;  // 第二个指针指向头结点，此时两个指针距离为N
     
-    while(first->next!=NULL){   // 第一个指针，移动到最后一个结点（此时第二指针指向倒数N）
-        sec=sec->next;          // 两个指针同时移动
-        first=first->next;
+    struct ListNode* slow = head;  // 第二个指针指向头结点，此时两个指针距离为N
+    
+    while(fast->next != NULL){   // 第一个指针，移动到最后一个结点（此时第二指针指向倒数N）
+        slow = slow->next;          // 两个指针同时移动
+        fast = fast->next;
     }
-    sec->next=sec->next->next;  // 删除结点
+    slow->next=slow->next->next;  // 删除结点
     return head;
 }
 /**
@@ -160,11 +163,11 @@ ListNode* removeNthFromEnd(ListNode* head, int n){
  输出: 1->2->3->4->5
  */
 ListNode* removeElements(struct ListNode* head, int val) {
-    struct ListNode *p=head,*temp;
+    struct ListNode *p=head, *temp;
     if(head == NULL)
         return head;
     while(head->val==val){
-        if(head->next!=NULL)head=head->next;
+        if(head->next!=NULL) head=head->next;
         else return NULL;
     }
     while(p->next != NULL){

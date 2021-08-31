@@ -232,7 +232,9 @@
     return nil;
 }
 
-// OC代码实现
+#pragma mark - 排序
+
+// 冒泡排序
 +(NSArray *)sortWithBubble:(NSMutableArray *)srcArray{
     NSInteger i,j;
     NSNumber * tmp;
@@ -253,9 +255,9 @@
     }
     return srcArray;
 }
-
+// 快速排序
 + (void)fastSort:(NSMutableArray *)srcArray left:(NSInteger)low right:(NSInteger)high {
-    
+    // 递归返回条件
     if (low >= high) {
         return;
     }
@@ -264,21 +266,21 @@
     NSInteger key = [srcArray[low] integerValue];
     
     while (i < j) {
-        /**** 首先从右边j开始查找比基准数小的值 ***/
+        /**** 1、首先从右边j开始查找比基准数小的值 ***/
         while (i < j && [srcArray[j] integerValue] >= key) {//如果比基准数大，继续查找
             j--;
         }
         //如果比基准数小，则将查找到的小值调换到i的位置
         srcArray[i] = srcArray[j];
         
-        /**** 当在右边查找到一个比基准数小的值时，就从i开始往后找比基准数大的值 ***/
+        /**** 2、当在右边查找到一个比基准数小的值时，就从i开始往后找比基准数大的值 ***/
         while (i < j && [srcArray[i] integerValue] <= key) {//如果比基准数小，继续查找
             i++;
         }
         //如果比基准数大，则将查找到的大值调换到j的位置
         srcArray[j] = srcArray[i];
     }
-    //将基准数放到正确位置
+    //3、将基准数放到正确位置
     srcArray[i] = @(key);
     [self fastSort:srcArray left:low right:i-1];
     
@@ -291,12 +293,13 @@
  2、更新左指针i ： 根据上轮左指针i 和dic[s[j]] ，每轮更新左边界i ，保证区间[i+1,j] 内无重复字符且最大。
  */
 + (NSInteger)lengthOfLongestSubstring:(NSArray *)chars {
+    // 定义hash表<chars[i], 最后一次的索引>
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-    NSInteger res = 0;
-    int i = -1;
-    for (int j=0; j<chars.count; j++) {
-        if (dict[chars[j]]) {
-            i = MAX(i, [dict[chars[j]] intValue]);
+    NSInteger res = 0; // 记录最长子字符串的长度
+    int i = -1; // 记录左边界
+    for (int j = 0; j < chars.count; i++) {
+        if (dict[chars[i]]) {
+            i = Max(i, [dict[chars[j]] intValue]);
         }
         [dict setObject:@(j) forKey:chars[j]];
         res = MAX(res, j-i);
@@ -310,8 +313,9 @@
     NSInteger mid;
     NSInteger left = 0;
     NSInteger right = nums.count - 1;
+    
     while (left <= right) {
-        mid = left + (right - left)/2;
+        mid = left + (right -left)/2;
         if ([nums[mid] integerValue] == target) {
             return mid;
         }
@@ -324,13 +328,21 @@
     return -1;
 }
 
+
 #pragma mark - 最大子序和（动态规划）
 + (NSInteger)maxSubArray:(NSArray *)nums {
+    // 记录最大和
     NSInteger sum = [nums[0] integerValue];
     NSInteger subCount = [nums[0] integerValue];
     for (int i = 1; i < nums.count; i++) {
-        if(subCount < 0) subCount = [nums[i] integerValue];
-        else subCount = subCount + [nums[i] integerValue];
+        if (subCount < 0) {
+            // 为负数时，舍弃
+            subCount = [nums[i] integerValue];
+        } else {
+            subCount = subCount + [nums[i] integerValue];
+        }
+        
+        // 与记录的最大和比较
         if (subCount > sum) {
             sum = subCount;
         }

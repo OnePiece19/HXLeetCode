@@ -196,7 +196,7 @@ ListNode* removeElements_recursive(ListNode* head, int val) {
 #pragma mark - 链表反转
 // 时间O(n) - 空间O(1)
 ListNode* reverseList(ListNode* head) {
-    ListNode* pre = NULL;    // 返回指针
+    ListNode* pre = NULL;   // 返回指针
     ListNode* cur = head;   // 遍历指针（反转结点）
     while (cur) {
         ListNode* next = cur->next; // 记录后续结点
@@ -337,10 +337,10 @@ struct ListNode* swapPairs1(struct ListNode* head){
  @return ture or flase
  */
 bool hasCycle(ListNode * head) {
-    if(head == nil || head->next == nil) return false;
+    if(head == NULL || head->next == NULL) return false;
     ListNode * fast = head;
     ListNode * slow = head;
-    while (fast != nil && fast->next != nil && fast->next->next != nil) {
+    while (fast != NULL && fast->next != NULL && fast->next->next != NULL) {
         slow = slow->next;
         fast = fast->next->next;
         if (slow == fast) {
@@ -452,31 +452,31 @@ ListNode* _Nullable getIntersectionNode_normal(ListNode *headA, ListNode *headB)
  */
 bool isPalindrome(struct ListNode* head){
     
-    if(head == NULL || head->next == NULL)
-        return true;
-    //利用快慢指针找到中间结点
-    struct ListNode* fast = head;
-    struct ListNode* slow = head;
+    if(head == NULL || head->next == NULL)  return true;
     
-    struct ListNode* p = head;
-    struct ListNode* pre = p;
-    struct ListNode* reHead = NULL;
+    // 利用快慢指针找到中间结点
+    ListNode* fast = head;
+    ListNode* slow = head;
+    
+    // 反转链表
+    ListNode* cur = head;     // 遍历指针（反转结点）
+    ListNode* reHead = NULL;  // 返回指针
     
     while(fast != NULL && fast->next != NULL){
         slow = slow->next;
         fast = fast->next->next;
         
-        pre = p->next;
-        p->next = reHead;
-        reHead = p;
-        p = pre;
+        ListNode * next = cur->next;
+        cur->next = reHead;
+        reHead = cur;
+        cur = next;
     }
     
     //如果链表长为奇数，slow应该指向中间结点的后一个
     if (fast) {
         slow = slow->next;
     }
-
+    // 回文判断
     while(slow){
         if(slow->val != reHead->val)
             return false;

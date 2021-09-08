@@ -145,8 +145,8 @@
 // 时间复杂度O(n),空间复杂度O(1);
 + (NSInteger)maxProfit:(NSArray *)prices {
     if(prices.count <= 1) return 0;
-    NSInteger minPrice = NSIntegerMax; // 记录最小价格
-    NSInteger maxProfit = 0; // 记录最大利润
+    NSInteger minPrice = NSIntegerMax;  // 记录最小价格
+    NSInteger maxProfit = 0;            // 记录最大利润
     for (int i = 0; i < prices.count; i++) {
         // 寻找最小值
         if ([prices[i] integerValue] < minPrice) {
@@ -170,7 +170,8 @@
             count++;
         }else {
             count--;
-            if (count == 0) num = nums[i+1];
+            if (count == 0)
+                num = nums[i+1];
         }
     }
     return [num integerValue];
@@ -292,19 +293,22 @@
  1、哈希表dic 统计： 指针j 遍历字符s ，哈希表统计字符s[j] 最后一次出现的索引 。
  2、更新左指针i ： 根据上轮左指针i 和dic[s[j]] ，每轮更新左边界i ，保证区间[i+1,j] 内无重复字符且最大。
  */
-+ (NSInteger)lengthOfLongestSubstring:(NSArray *)chars {
++ (NSInteger)lengthOfLongSubString:(NSArray *)chars {
     // 定义hash表<chars[i], 最后一次的索引>
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-    NSInteger res = 0; // 记录最长子字符串的长度
-    int i = -1; // 记录左边界
-    for (int j = 0; j < chars.count; i++) {
-        if (dict[chars[i]]) {
-            i = Max(i, [dict[chars[j]] intValue]);
+    // 记录最长子字符串的长度
+    NSInteger maxLength = 0;
+    // 记录左窗口边界  相同字符  的最大索引位置
+    int left = 0;
+    for (int right = 0; right < chars.count; right++) {
+        if (dict[chars[right]]) {
+            left = MAX(left, [dict[chars[right]] intValue]); // 与hash表比较 最大的左边界
         }
-        [dict setObject:@(j) forKey:chars[j]];
-        res = MAX(res, j-i);
+        [dict setObject:@(right) forKey:chars[right]];
+        
+        maxLength = MAX(maxLength, right-left+1);
     }
-    return res;
+    return maxLength;
 }
 
 #pragma mark - 二分查找
@@ -334,6 +338,7 @@
     // 记录最大和
     NSInteger sum = [nums[0] integerValue];
     NSInteger subCount = [nums[0] integerValue];
+    
     for (int i = 1; i < nums.count; i++) {
         if (subCount < 0) {
             // 为负数时，舍弃
@@ -341,7 +346,6 @@
         } else {
             subCount = subCount + [nums[i] integerValue];
         }
-        
         // 与记录的最大和比较
         if (subCount > sum) {
             sum = subCount;

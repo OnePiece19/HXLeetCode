@@ -192,30 +192,21 @@ ListNode* removeElements_recursive(ListNode* head, int val) {
         return head;
     }
 }
-#pragma mark - 中间节点
-struct ListNode *findMiddle(struct ListNode *head) {
-    struct ListNode *middle = head;
-    struct ListNode *runner = head->next;
-    while(runner != NULL && runner->next != NULL) {
-        middle = middle->next;
-        runner = runner->next->next;
-    }
-    return middle;
-}
 
 #pragma mark - 链表反转
 // 时间O(n) - 空间O(1)
 ListNode* reverseList(ListNode* head) {
-    ListNode* pre = nil;
-    ListNode* cur = head;
+    ListNode* pre = NULL;    // 返回指针
+    ListNode* cur = head;   // 遍历指针（反转结点）
     while (cur) {
-        ListNode* next = cur->next;
+        ListNode* next = cur->next; // 记录后续结点
         cur->next = pre;
         pre = cur;
         cur = next;
     }
     return pre;
 }
+
 // 时间O(n) - 空间O(n)
 ListNode* reverseList_recursive(ListNode* head) {
     if (head == NULL || head->next == NULL) {
@@ -400,19 +391,23 @@ ListNode* detectCycle(ListNode *head) {
  解析：在相交结点前，保证步伐一致
  */
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-     if (headA==NULL || headB == NULL) return NULL;
-     struct ListNode *pA = headA;
-     struct ListNode *pB = headB;
+    if (headA == NULL) return headA;
+    if (headB == NULL) return headB;
+    
+    struct ListNode *pA = headA;
+    struct ListNode *pB = headB;
      // 交换遍历，短长互补
-     while (pA != pB){
-         pA = (pA == NULL ? headB : pA->next);
-         pB = (pB == NULL ? headA : pB->next);
-     }
-     return pA;
+    while (pA != pB){
+        pA = (pA == NULL ? headB : pA->next);
+        pB = (pB == NULL ? headA : pB->next);
+    }
+    return pA;
 }
 
 ListNode* _Nullable getIntersectionNode_normal(ListNode *headA, ListNode *headB) {
-    if (headA == NULL || headB == NULL) return NULL;
+    if (headA == NULL) return headA;
+    if (headB == NULL) return headB;
+    
     int lenA = 0, lenB = 0;
     struct ListNode * a = headA;
     struct ListNode * b = headB;
@@ -448,6 +443,7 @@ ListNode* _Nullable getIntersectionNode_normal(ListNode *headA, ListNode *headB)
     return NULL;
 }
 
+#pragma mark - 回文链表
 /**
  请判断一个链表是否为回文链表
  
@@ -498,13 +494,15 @@ bool isPalindrome(struct ListNode* head){
 ListNode* oddEvenList(struct ListNode* head){
     
     if(!head || !head->next) return head;
-    struct ListNode *odd = head;  //奇数尾节点
-    struct ListNode *even = head->next; // 偶数尾节点
+    ListNode *odd = head;           //奇数尾节点
+    ListNode *even = head->next;    // 偶数尾节点
 
     while(even && even->next){
-        ListNode *tmp = odd->next;
+        ListNode *tmp = odd->next;  //记录偶数 头结点
+        
         odd->next = even->next;
         even->next = even->next->next;
+        
         odd->next->next = tmp;
         even = even->next;
         odd = odd->next;
@@ -530,6 +528,7 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2){
     result = malloc(sizeof(struct ListNode));
     result -> next = NULL;
     struct ListNode * L = result;
+    
     int sum = 0;
     while (l1 != NULL || l2 != NULL || sum != 0) {
         if (l1 != NULL) {
@@ -545,7 +544,7 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2){
         p->val = sum % 10;
         L->next = p;
         L = L->next;
-        sum = sum/10;
+        sum = sum/10;   //保留进位
     }
     if (l1 != NULL) {
         L->next = l1;
@@ -555,6 +554,17 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2){
     }
     result = result ->next;
     return result;
+}
+
+#pragma mark - 中间节点
+ListNode *findMiddle(struct ListNode *head) {
+    ListNode *middle = head;
+    ListNode *runner = head->next;
+    while(runner != NULL && runner->next != NULL) {
+        middle = middle->next;
+        runner = runner->next->next;
+    }
+    return middle;
 }
 
 #pragma mark - 排序链表

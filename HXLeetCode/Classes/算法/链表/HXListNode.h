@@ -65,7 +65,7 @@ ListNode* reverseBetween(ListNode* head, int m, int n); // 链表翻转--m到n
 
 ListNode* swapPairs(ListNode* head);                    // 链表反转--两两反转
 
-ListNode* _Nullable swapPairs1(ListNode* head);                   // 链表反转--两两反转
+ListNode* _Nullable swapPairs1(ListNode* head);         // 链表反转--两两反转
 
 #pragma mark - 环形链表
 bool hasCycle(ListNode * head);                     // 是否有环

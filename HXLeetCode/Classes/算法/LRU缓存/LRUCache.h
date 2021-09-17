@@ -13,13 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init:(NSUInteger)limit;
 
-- (void)removeAllObjects;
-
-- (void)removeObjectForKey:(NSString *)key;
-
 - (id)objectForKey:(NSString *)key;
 
 - (void)setObject:(id)obj forKey:(NSString *)key;
+
+- (void)removeObjectForKey:(NSString *)key;
+
+
+- (void)removeAllObjects;
 
 @end
 

@@ -328,6 +328,20 @@ struct ListNode* swapPairs1(struct ListNode* head){
     }
     return newHead;
 }
+/*
+ 输入：["h","e","l","l","o"]
+ 输出：["o","l","l","e","h"]
+ */
+void reverseSring(char *s, int sSize) {
+    int left = 0, right = sSize - 1;
+    while (left < right) {
+        char tmp = s[left];
+        s[left] = s[right];
+        s[right] = tmp;
+        left++;
+        right--;
+    }
+}
 
 #pragma mark - 环形链表
 /*

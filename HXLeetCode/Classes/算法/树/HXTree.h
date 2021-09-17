@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sufPrint:(TreeNode *)treeNode;    // 后序遍历
 
-- (void)levelOrder:(TreeNode*)treeNode;   // 层次遍历?
+- (void)levelOrder:(TreeNode*)treeNode;   // 层次遍历
 
 - (NSArray<NSArray *>*)zigzagLevelOrder:(TreeNode*)treeNode; // 之字形层次遍历?
 
@@ -51,6 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)isSymmetric_dfs:(TreeNode*)root;  // 深度递归
 
 -(BOOL)isSymmetric_bfs:(TreeNode*)root;  // 广度遍历
+
+#pragma mark - 二叉树的镜像
+- (TreeNode *)mirrorTree:(TreeNode *)root;
+
+- (BOOL)isMirror:(TreeNode*)t1 withTarget:(TreeNode*)t2;
+
 
 #pragma mark - 二叉树中和为某一值的路径
 

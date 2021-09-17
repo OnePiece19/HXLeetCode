@@ -232,6 +232,67 @@
 + (NSArray *)getLeastNumbers:(NSArray *)nums withNums:(NSInteger)k {
     return nil;
 }
+#pragma mark - 寻找第K大
+// 有一个整数数组，请你根据快速排序的思路，找出数组中第 大的数。
++ (NSInteger)findKth:(NSArray *)nums targetNumL:(NSInteger)K{
+    
+    return [self findK:nums left:0 right:nums.count-1 target:K];
+}
+
++ (NSInteger)findK:(NSMutableArray *)nums left:(NSInteger)left right:(NSInteger)right target:(NSInteger)K{
+    if (left < right) {
+        NSInteger index = [self fastSortOnce:nums left:left right:right];
+        
+        if (index = K - 1) {
+            return nums[index];
+        } else if (index < K - 1){
+            return [self findK:nums left:index+1 right:right target:K]; // 第K大的数在 右边
+        } else if (index > K - 1){
+            return [self findK:nums left:left right:index-1 target:K];  // 第K大的数在 左边
+        }
+    }
+    return -1;
+}
+
+// 返回一次快速排序的key索引
++ (NSInteger)fastSortOnce:(NSMutableArray *)nums left:(NSInteger)left right:(NSInteger)right {
+    NSInteger key = [nums[left] integerValue];
+    while (left < right) {
+        // 首先从右边right开始查找比基准数小的值
+        while (left < right && nums[right] < key) {
+            right--;
+        }
+        nums[left] = nums[right];
+        //开始从左边left开始查找比基准数大的值
+        while (left < right && nums[left] > key) {
+            left++;
+        }
+        nums[right] = nums[left];
+    }
+    nums[left] = @(key);
+    return left; // 返回一次的key的索引
+}
+
+#pragma mark - 数组中只出现一次的数（其它数出现k次）
++ (NSInteger)foundOnceNumber:(NSArray *)nums {
+    // 定义hash表<num[i], index>
+    NSMutableDictionary<NSNumber *, NSNumber *> *map = [[NSMutableDictionary alloc]init];
+    for (NSNumber * num in nums) {
+        if (map[num]) {
+            NSInteger count = [map[num] integerValue];
+            [map setObject:num forKey:@(count+1)];
+        } else {
+            [map setObject:num forKey:@(1)];
+        }
+    }
+    
+    for (NSNumber * num in map.allKeys) {
+        if ([map[num] integerValue] == 1) {
+            return [map[num] integerValue];
+        }
+    }
+    return 0;
+}
 
 #pragma mark - 排序
 
@@ -350,6 +411,72 @@
         if (subCount > sum) {
             sum = subCount;
         }
+    }
+    return sum;
+}
+
+
+#pragma mark - 接雨水问题
+/*
+ 给定一个整形数组arr，已知其中所有的值都是非负的，将这个数组看作一个柱子高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+ 输入：[3,1,2,5,2,4]  返回 5
+ 思路：双指针法
+ */
++ (NSInteger)maxWater:(NSArray *)nums {
+    // 数据校验
+    if (nums.count <= 2) {
+        return 0;
+    }
+    NSInteger res = 0;  // 雨水量
+    NSUInteger left = 0;
+    NSUInteger right = nums.count - 1;
+    // 取低的为边界
+    NSInteger minBondary = Min([nums[left] intValue], [nums[right] intValue]);
+    
+    while (left < right) {
+        if (nums[left] < nums[right]) {
+            left++;
+            // 如果当前边界小于边界，则可以装水
+            if ([nums[left] intValue] < minBondary) {
+                res =res + (minBondary - [nums[left] intValue]);
+            } else {
+                minBondary = Min([nums[left] intValue], [nums[right] intValue]);
+            }
+        } else {
+            right--;
+            if ([nums[right] intValue] < minBondary) {
+                res =res + (minBondary - [nums[right] intValue]);
+            } else {
+                minBondary = Min([nums[left] intValue], [nums[right] intValue]);
+            }
+        }
+    }
+    return res;
+}
+
+#pragma mark - 跳台阶
+/*
+ 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个  级的台阶总共有多少种跳法
+ 题解：
+ 当n等于1的时候，只需要跳一次即可，只有一种跳法，记f(1)=1
+ 当n等于2的时候，可以先跳一级再跳一级，或者直接跳二级，共有2种跳法，记f(2)=2
+ 当n等于3的时候，他可以从一级台阶上跳两步上来，也可以从二级台阶上跳一步上来，所以总共有f(3)=f(2)+f(1)；
+ 
+ */
++ (NSInteger)jumpFloor_recursive:(NSUInteger)number {
+    if (number <= 1)    return 1;
+    if (number < 3)     return number;
+    return JumpFloor(number - 1) + JumpFloor(number - 2);
+}
++ (NSInteger)jumpFloor:(NSUInteger)number {
+    if (number <= 2) {
+        return number;
+    }
+    NSInteger first = 1, second = 2, sum = 0;
+    while (number-- > 2) {
+        sum = first + second;
+        first = second;
+        second = sum;
     }
     return sum;
 }

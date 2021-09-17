@@ -59,14 +59,17 @@
         [_list removeObjectIdenticalTo:old];
         [_list insertObject:old atIndex:0];
         return;
-    } else if (_list.count == _limit) {
+    } else {
+        _Element* newElement = [[_Element alloc] initObject:obj forKey:key];
+        [_cache setObject:newElement forKey:key];
+        [_list insertObject:newElement atIndex:0];
+    }
+    
+    if (_list.count > _limit) {
         old = [_list lastObject];
         [_list removeLastObject];
         [_cache removeObjectForKey:old.key];
     }
-    _Element* newElement = [[_Element alloc] initObject:obj forKey:key];
-    [_cache setObject:newElement forKey:key];
-    [_list insertObject:newElement atIndex:0];
 }
 
 - (id)objectForKey:(NSString*)key {

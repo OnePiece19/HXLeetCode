@@ -191,8 +191,10 @@ void shellSort(int array[],int n,int t){
         shellInsert(array,n,dkHibbard(t,i));
 }
 
+
+
 // OC代码实现
--(NSArray *)sortWithBubble:(NSMutableArray *)srcArray{
+- (NSArray *)sortWithBubble:(NSMutableArray *)srcArray{
     NSInteger i,j;
     NSNumber * tmp;
     NSInteger flag = 1;  //加入一个标志位，可以使冒泡排序的算法最优时间复杂为O(n)

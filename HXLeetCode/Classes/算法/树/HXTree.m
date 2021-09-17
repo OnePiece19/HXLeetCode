@@ -159,14 +159,6 @@ height(p)={
     return [self isMirror:root withTarget:root];
 }
 
--(BOOL)isMirror:(TreeNode*)t1 withTarget:(TreeNode*)t2 {
-    if (t1 == nil && t2 == nil) return YES;
-    if (t1 == nil || t2 == nil) return NO;
-    
-    return (t1.val == t2.val)
-    && [self isMirror:t1.right withTarget:t2.left]
-    && [self isMirror:t1.left withTarget:t2.right] ;
-}
 // 时间:O(n), 空间:O(n),
 -(BOOL)isSymmetric_bfs:(TreeNode*)root {
     NSMutableArray * queue = [NSMutableArray array];
@@ -186,6 +178,43 @@ height(p)={
         [queue addObject:t2.left];
     }
     return YES;
+}
+
+#pragma mark - 二叉树的镜像
+/*
+ 例如输入：
+
+      1
+    /   \
+   2     3
+  / \   / \
+ 4   5 6   7
+ 镜像输出：
+      1
+    /   \
+   3     2
+  / \   / \
+ 5   4 7   6
+ */
+- (TreeNode *)mirrorTree:(TreeNode *)root {
+    if (root == NULL) return root;
+    
+    TreeNode * left = [self mirrorTree:root.left];
+    TreeNode * right = [self mirrorTree:root.right];
+    
+    root.left = right;
+    root.right = left;
+    
+    return root;
+}
+
+-(BOOL)isMirror:(TreeNode*)t1 withTarget:(TreeNode*)t2 {
+    if (t1 == nil && t2 == nil) return YES;
+    if (t1 == nil || t2 == nil) return NO;
+    
+    return (t1.val == t2.val)
+    && [self isMirror:t1.right withTarget:t2.left]
+    && [self isMirror:t1.left withTarget:t2.right] ;
 }
 
 @end

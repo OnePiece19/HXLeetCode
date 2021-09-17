@@ -67,6 +67,8 @@ ListNode* swapPairs(ListNode* head);                    // 链表反转--两两�
 
 ListNode* _Nullable swapPairs1(ListNode* head);         // 链表反转--两两反转
 
+void reverseSring(char *s, int sSize);                  // 字符串反转
+
 #pragma mark - 环形链表
 bool hasCycle(ListNode * head);                     // 是否有环
 
@@ -77,8 +79,10 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB);        // 相�
 
 ListNode *getIntersectionNode_normal(ListNode *headA, ListNode *headB); // 相交链表--相交点
 
+
 #pragma mark - 回文链表
 bool isPalindrome(ListNode* head);
+
 
 #pragma mark - 奇偶链表
 ListNode* oddEvenList(struct ListNode* head);

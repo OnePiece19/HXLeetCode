@@ -36,7 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)levelOrder:(TreeNode*)treeNode;   // 层次遍历
 
-- (NSArray<NSArray *>*)zigzagLevelOrder:(TreeNode*)treeNode; // 之字形层次遍历?
+- (NSArray<NSArray *>*)zigzagLevelOrder:(TreeNode*)treeNode; // 之字形层次遍历
+
+#pragma mark - 最近公共祖先
+- (NSInteger)lowestCommonAncestor:(TreeNode*)root first:(NSInteger)o1 second:(NSInteger)o2;
+
+
+#pragma mark - 重建二叉树
+- (TreeNode *)reConstructBinaryTree:(NSArray *)preArray inArray:(NSArray *)inArray;
 
 #pragma mark - 二叉树的右视图
 - (NSArray *)rightSideView:(TreeNode*)treeNode;
@@ -52,10 +59,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)isSymmetric_bfs:(TreeNode*)root;  // 广度遍历
 
-#pragma mark - 二叉树的镜像
-- (TreeNode *)mirrorTree:(TreeNode *)root;
+#pragma mark - 镜像二叉树
+- (TreeNode *)mirrorTree:(TreeNode *)root;                  // 求镜像二叉树
 
-- (BOOL)isMirror:(TreeNode*)t1 withTarget:(TreeNode*)t2;
+- (BOOL)isMirror:(TreeNode*)t1 withTarget:(TreeNode*)t2;    // 是否为镜像二叉树
+
+#pragma mark - 合并二叉树
+- (TreeNode *)mergeTrees:(TreeNode *)t1 withTree:(TreeNode *)t2;
 
 
 #pragma mark - 二叉树中和为某一值的路径

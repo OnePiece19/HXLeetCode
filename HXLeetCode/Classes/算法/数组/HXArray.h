@@ -96,8 +96,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSInteger)maxWater:(NSArray *)nums;
 
 
+#pragma mark - 岛屿数量问题
+int numIslands(char** grid, int gridSize, int* gridColSize);
+
+
 #pragma mark - 跳台阶
-+ (NSInteger)jumpFloor_recursive:(NSUInteger)number;// 非递归
++ (NSInteger)jumpFloor_recursive:(NSUInteger)number;// 递归
 
 + (NSInteger)jumpFloor:(NSUInteger)number;          // 非递归
 

@@ -454,6 +454,54 @@
     return res;
 }
 
+#pragma mark - 岛屿数量问题
+/*
+ 给一个01矩阵，1代表是陆地，0代表海洋， 如果两个1相邻，那么这两个1属于同一个岛。我们只考虑上下左右为相邻。
+ 岛屿: 相邻陆地可以组成一个岛屿（相邻:上下左右） 判断岛屿个数。
+ 
+ 方法一：深度优先搜索DFS
+ 1,深度搜索二维网格，从当前点找到关联的整个岛屿
+ 2,将搜索过的位置置0
+ 3,遍历整个二维网格，搜索一个岛屿消灭一个岛屿，搜索了几次就共有几个岛屿
+ */
+
+void searchLand_DFS(char** grid, int iRowSize, int iColSize, int iRow, int iCol){
+    //1,将搜索过的位置置0
+    grid[iRow][iCol] = '0';
+    //2,向右搜索
+    if((iCol + 1 < iColSize) && ('1' == grid[iRow][iCol + 1])){
+        searchLand_DFS(grid, iRowSize, iColSize, iRow, iCol + 1);
+    }
+    //3,向下搜索
+    if((iRow + 1 < iRowSize) && ('1' == grid[iRow + 1][iCol])){
+        searchLand_DFS(grid, iRowSize, iColSize, iRow + 1, iCol);
+    }
+    //4,向上搜索
+    if((iRow - 1 >= 0) && ('1' == grid[iRow - 1][iCol])){
+        searchLand_DFS(grid, iRowSize, iColSize, iRow - 1, iCol);
+    }
+    //5,向左搜索
+    if((iCol - 1 >= 0) && ('1' == grid[iRow][iCol - 1])){
+        searchLand_DFS(grid, iRowSize, iColSize, iRow, iCol - 1);
+    }
+    return;
+}
+int numIslands(char** grid, int gridSize, int* gridColSize){
+    int     i           = 0;
+    int     j           = 0;
+    int     iRet        = 0;
+    for(i = 0; i < gridSize; i++){
+        for(j = 0; j < gridColSize[0]; j++){
+            if('1' == grid[i][j]){
+                searchLand_DFS(grid, gridSize, gridColSize[0], i, j);
+                iRet += 1;
+            }
+        }
+    }
+    return iRet;
+}
+
+
 #pragma mark - 跳台阶
 /*
  一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个  级的台阶总共有多少种跳法
@@ -466,8 +514,9 @@
 + (NSInteger)jumpFloor_recursive:(NSUInteger)number {
     if (number <= 1)    return 1;
     if (number < 3)     return number;
-    return JumpFloor(number - 1) + JumpFloor(number - 2);
+    return [self jumpFloor_recursive:(number - 1)] + [self jumpFloor_recursive:(number - 2)];
 }
+
 + (NSInteger)jumpFloor:(NSUInteger)number {
     if (number <= 2) {
         return number;
